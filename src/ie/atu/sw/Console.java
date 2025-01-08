@@ -20,9 +20,12 @@ public class Console {
         Scanner keyb = new Scanner(System.in);
         String choice;
 
-        String embeddingsFile = "";
-        String googleWordsFile = "";
+        String embeddingsFile = "./resources/embeddings.txt"; //default embeddings file
+        String googleWordsFile = "./resources/google-10000.txt"; //default google words file
         String outputFile = "./out.txt"; //default output file
+
+        //Directory for Resources
+        final String DIRECTORY = "./resources/";
 
 
         while(true) {
@@ -91,6 +94,7 @@ public class Console {
 
         //Begin storing embeddings in files
         wep.storeFile(embeddingsFile);
+
     }
 
 

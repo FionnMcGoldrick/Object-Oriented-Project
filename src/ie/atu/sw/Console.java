@@ -65,7 +65,8 @@ public class Console {
                     outputFile = keyb.nextLine();
                     break;
                 case "4":
-                    System.out.println("You selected option 4");
+                    System.out.println("You selected option 4\nBeginning processing...");
+                    beginProcessing(embeddingsFile, googleWordsFile, outputFile);
                     break;
                 case "5":
                     System.out.println("You selected option 5");
@@ -78,11 +79,18 @@ public class Console {
                     break;
             }
 
-
-
-
         }
 
+    }
+
+
+    //Method to begin processing
+    private void beginProcessing(String embeddingsFile, String googleWordsFile, String outputFile){
+        //Create new instance of WordEmbeddingsProccessor
+        WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
+
+        //Begin storing embeddings in files
+        wep.storeFile(embeddingsFile);
     }
 
 

@@ -1,8 +1,12 @@
 package ie.atu.sw;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Console {
 
@@ -25,7 +29,7 @@ public class Console {
         String embeddingsFile = "./resources/embeddings.txt"; //default embeddings file
         String googleWordsFile = "./resources/google-1000.txt"; //default google words file
         String outputFile = "./out.txt"; //default output file
-        String userFile = "./resources/myfile.txt"; //default user file
+        String userFile = "./resources/userFile.txt"; //default user file
 
         //Directory for Resources
         final String DIRECTORY = "./resources/";
@@ -125,8 +129,37 @@ public class Console {
             Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
             System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
 
+            //Read the user file
+            List<String> userWords = readUserFile(userFile);
+
+            for(String word : userWords){
+                if(googleWordEmbeddings.containsKey(word)){
+                    System.out.println("Word: " + word + " Embeddings: " + googleWordEmbeddings.get(word));
+                } else {
+                    System.out.println("Word: " + word + " not found in Google Word Embeddings.");
+                }
+            }
+
+
         }
 
+        public List<String> readUserFile(String userFile){
+
+            try(BufferedReader br = new BufferedReader(new FileReader(userFile))){
+                List<String> userWords = new ArrayList<>();
+                String line;
+                while((line = br.readLine()) != null){
+                    userWords.add(line);
+                }
+                return userWords;
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+
+
+        }
 
     }
 

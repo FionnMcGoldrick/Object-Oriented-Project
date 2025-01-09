@@ -1,14 +1,14 @@
 package ie.atu.sw;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 import java.util.Scanner;
 
 public class UserFileProcessor {
+
+    Scanner keyb = new Scanner(System.in);
+    EmbeddingUtils embeddingUtils = new EmbeddingUtils();
 
     public List<String> readUserFile(String userFile){
 
@@ -39,9 +39,6 @@ public class UserFileProcessor {
 
     public void writeUserFile(String DIRECTORY, String TXT){
 
-        Scanner keyb = new Scanner(System.in);
-        EmbeddingUtils embeddingUtils = new EmbeddingUtils();
-
         System.out.println("---------------------------------");
         System.out.print("File Title: ");
 
@@ -49,8 +46,16 @@ public class UserFileProcessor {
 
         embeddingUtils.sleep(250);
 
-        File file = new File(title);
+        File file = handleFileCreation(title);
+        writeToUserFile(file);
 
+        System.out.println("\n---------------------------------");
+
+    }
+
+    private File handleFileCreation(String title){
+
+        File file = new File(title);
         try{
             if(file.createNewFile()){
                 System.out.println("File created: " + file.getAbsolutePath());
@@ -61,10 +66,19 @@ public class UserFileProcessor {
             System.out.println("Error: " + e);
         }
 
-        System.out.println("\n---------------------------------");
+        return file;
+    }
 
+    private void writeToUserFile(File file){
 
-
-
+        try(FileWriter writer = new FileWriter(file)){
+            System.out.println("---------------------------------");
+            System.out.println("Enter text to write to file: ");
+            String text = keyb.nextLine();
+            writer.write(text);
+            System.out.println("Text written to file.\n");
+        } catch (IOException e){
+            System.out.println("Error: " + e);
+        }
     }
 }

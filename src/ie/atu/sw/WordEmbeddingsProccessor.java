@@ -13,8 +13,6 @@ import java.util.List;
 
 public class WordEmbeddingsProccessor extends AbstractProcessor {
 
-
-
     public Map<String, double[]> storeFile(String filePath) {
         Map<String, double[]> embeddings = new ConcurrentHashMap<>();
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();

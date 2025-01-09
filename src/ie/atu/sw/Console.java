@@ -10,29 +10,37 @@ import java.util.ArrayList;
 
 public class Console {
 
-
+    /*
+    * Constructor for the Console class
+    * Runs the startConsole method as soon as a Console object is created
+    * @return void
+    * @param void
+     */
     public Console() {
         startConsole();
     }
-
 
     private void startConsole(){
         menu();
     }
 
-
+    /*
+    * Method to display the menu options and to handle user input
+    * @return void
+    * @param void
+     */
     private void menu(){
 
         Scanner keyb = new Scanner(System.in);
         String choice;
 
+        // Default file paths
         String embeddingsFile = "./resources/embeddings.txt";
         String googleWordsFile = "./resources/google-1000.txt";
-        String outputFile = "./out.txt";
+        String outputFile = "./resources/output.txt";
         String userFile = "./resources/userFile.txt";
 
         while(true) {
-
 
             System.out.println(ConsoleColour.WHITE);
             System.out.println("************************************************************");
@@ -92,45 +100,87 @@ public class Console {
     }
 
    /*
-    * Method to begin processing the files
-    * @param embeddingsFile
-    * @param googleWordsFile
-    * @param outputFile
+    * Method to begin the processing of the files.
+    * Calls the necessary classes to process the files
     * @return void
+    * @param String embeddingsFile, String googleWordsFile, String userFile, String outputFile
     */
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile){
 
+            // Create instances of the classes
             WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
             GoogleWordProcessor gwp = new GoogleWordProcessor();
             CommonWordFinder finder = new CommonWordFinder();
             Simplifier simplifier = new Simplifier();
 
+            /*
+            * Load the embeddings file and store the embeddings in a map
+            * @return Map<String, double[]>
+            * @param String embeddingsFile
+            * @see WordEmbeddingsProccessor
+             */
             Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
             System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
 
+            /*
+            * Load the google words file and store the words in a list
+            * @return List<String>
+            * @param String googleWordsFile
+            * @see GoogleWordProcessor
+             */
             List<String> googleWords = gwp.googleWords(googleWordsFile);
             System.out.println("Google Words: " + googleWords.size() + " words loaded.");
 
+            /*
+            * Find the common words between the google words and the embeddings
+            * Write common words that have been found to a file
+            * @return List<String>
+            * @param List<String> googleWordList, Map<String, double[]> embeddingsMap
+            * @see CommonWordFinder
+             */
             List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
             finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
 
+            /*
+            * Read the user file and store the words in a list
+            * @return List<String>
+            * @param String userFile
+            * @see GoogleWordProcessor
+             */
             Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
             System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
 
+            /*
+            * Simplify the user file using the embeddings
+            * @return void
+            * @param Map<String, double[]> embeddings, List<String> userWords, String userFile, String outputFile
+            * @see Simplifier
+             */
             List<String> userWords = readUserFile(userFile);
             simplifier.simplify(embeddings, userWords, userFile, outputFile);
 
         }
 
+        /*
+        * Method to read the user file and store the words in a list
+        * @return List<String>
+        * @param String userFile
+         */
         public List<String> readUserFile(String userFile){
 
+            // Create a list to store the words
             List<String> userWords = new ArrayList<>();
 
+            /*
+            * Read the user file with BufferReader and store the words in a list
+            * @return List<String>
+            * @param String userFile
+             */
             try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    line = line.replace(".", "");
-                    String[] words = line.split("\\s+");
+                    line = line.replace(".", ""); // Remove full stops
+                    String[] words = line.split("\\s+"); // Split the line into words
                     for (String word : words) {
                         userWords.add(word);
                     }
@@ -140,7 +190,6 @@ public class Console {
             }
 
             return userWords;
-
         }
 
     }

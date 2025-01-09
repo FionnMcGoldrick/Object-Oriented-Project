@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class Console {
 
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
+    final String DIRECTORY = "./resources/";
+    final String TXT = ".txt";
+
 
     /*
     * Constructor for the Console class
@@ -37,10 +40,12 @@ public class Console {
         String choice;
 
         // Default file paths
-        String embeddingsFile = "./resources/embeddings.txt";
-        String googleWordsFile = "./resources/google-1000.txt";
-        String outputFile = "./resources/output.txt";
-        String userFile = "./resources/userFile.txt";
+        String embeddingsFile = DIRECTORY + "embeddings" + TXT;
+        String googleWordsFile = DIRECTORY + "google-1000" + TXT;
+        String outputFile = DIRECTORY + "output" + TXT;
+        String userFile = DIRECTORY + "userFile" + TXT;
+
+        StringBuilder sb = new StringBuilder();
 
         while(true) {
 
@@ -75,19 +80,19 @@ public class Console {
             switch (choice) {
                 case "1":
                     System.out.print("\nYou selected option 1\nPlease enter title of embeddings file\nENTER: ");
-                    embeddingsFile = keyb.nextLine();
+                    embeddingsFile = DIRECTORY + keyb.nextLine() + TXT;
                     break;
                 case "2":
                     System.out.print("\nYou selected option 2\nPlease enter title of Google 1000 file\nENTER: ");
-                    googleWordsFile = keyb.nextLine();
+                    googleWordsFile = DIRECTORY + keyb.nextLine() + TXT;
                     break;
                 case "3":
                     System.out.print("\nYou selected option 3\nPlease enter title of file you want simplified:\nENTER: ");
-                    userFile = keyb.nextLine();
+                    userFile = DIRECTORY + keyb.nextLine() + TXT;
                     break;
                 case "4":
                     System.out.print("\nYou selected option 4\nPlease enter title of output file\nENTER: ");
-                    outputFile = keyb.nextLine();
+                    outputFile = DIRECTORY + keyb.nextLine() + TXT;
                     break;
                 case "5":
                     System.out.print("\n\nBeginning processing... \n\n");

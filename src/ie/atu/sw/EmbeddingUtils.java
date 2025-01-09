@@ -43,13 +43,13 @@ public class EmbeddingUtils {
 
 
     //method that clears the terminal
-    public static void clearScreen() {
+   /*public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }
+    }*/
 
     //sleep method
-    public static void sleep(int time) {
+    public void sleep(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {

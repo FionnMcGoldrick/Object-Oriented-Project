@@ -79,8 +79,6 @@ public class GoogleWordProcessor extends AbstractProcessor{
         }
     }
 
-
-
     public List <String> googleWords(String filepath){
         try(BufferedReader br = new BufferedReader(new FileReader(filepath))){
             List<String> googleWords = new ArrayList<>();

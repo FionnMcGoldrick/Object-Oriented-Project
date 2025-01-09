@@ -1,5 +1,8 @@
 package ie.atu.sw;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,27 +12,37 @@ public class Simplifier {
 
     /*
      * Simplify method to replace a word with its most similar word
-     * @param embeddings
-     * @param googleWordsEmbeddings
-     * @param userWords
-     * @return void
+     * and append the result to the output file.
      */
     public void simplify(Map<String, double[]> embeddings, Map<String, double[]> googleWordsEmbeddings, List<String> userWords, String outputFile) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true))) { // Open file in append mode
+            for (String word : userWords) {
+                if (embeddings.containsKey(word)) {
+                    System.out.println("'" + word + "' found in embeddings");
 
-        for (String word : userWords) {
-            if (embeddings.containsKey(word)) {
-                System.out.println("'" + word + "' found in embeddings");
+                    double[] wordVector = embeddings.get(word);
 
-                double[] wordVector = embeddings.get(word);
+                    // Find the most similar word
+                    String mostSimilarWord = findMostSimilarWord(word, wordVector, embeddings);
 
-                // Find the most similar word
-                String mostSimilarWord = findMostSimilarWord(word, wordVector, embeddings);
+                    // Replace or log the replacement
+                    System.out.println("Replaced '" + word + "' with most similar word: '" + mostSimilarWord + "'");
 
-                // Replace or log the replacement
-                System.out.println("Replaced '" + word + "' with most similar word: '" + mostSimilarWord + "'");
-            } else {
-                System.out.println("'" + word + "' not found in embeddings");
+                    // Append the replaced word to the file
+                    writer.write(mostSimilarWord);
+                } else {
+                    System.out.println("'" + word + "' not found in embeddings");
+
+                    // Append the original word to the file if not found
+                    writer.write(word);
+                }
+
+                writer.write(" "); // Ensure proper spacing between words
             }
+
+            writer.newLine(); // Add a newline after processing the line
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
@@ -44,7 +57,6 @@ public class Simplifier {
         String mostSimilarWord = null;
         double highestSimilarity = Double.NEGATIVE_INFINITY;
 
-        // Iterate over all words in the embeddings
         for (Map.Entry<String, double[]> entry : embeddings.entrySet()) {
             String word = entry.getKey();
             double[] vector = entry.getValue();
@@ -57,7 +69,6 @@ public class Simplifier {
             // Calculate cosine similarity
             double similarity = cosineCalculator.calculate(targetVector, vector);
 
-            // Update the most similar word if higher similarity is found
             if (similarity > highestSimilarity) {
                 highestSimilarity = similarity;
                 mostSimilarWord = word;

@@ -51,17 +51,24 @@ public class Console {
             System.out.println("*             Virtual Threaded Text Simplifier             *");
             System.out.println("*                                                          *");
             System.out.println("************************************************************");
+            embeddingUtils.sleep(250);
             System.out.println("(1) Specify Embeddings File (default: ./resources/embeddings.txt)");
+            embeddingUtils.sleep(250);
             System.out.println("(2) Specify Google 1000 File (default: ./resources/google-1000.txt)");
+            embeddingUtils.sleep(250);
             System.out.println("(3) Specify the file you want simplified (default: ./resources/google-1000.txt)");
+            embeddingUtils.sleep(250);
             System.out.println("(4) Specify an Output File (default: ./output.txt)");
+            embeddingUtils.sleep(250);
             System.out.println("(5) Execute, Analyse and Report");
+            embeddingUtils.sleep(250);
             System.out.println("(6) Optional Extras...");
+            embeddingUtils.sleep(250);
             System.out.println("(?) Quit");
 
-            System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-            System.out.print("Select Option [1-5]");
-            System.out.println();
+            embeddingUtils.sleep(250);
+            System.out.print(ConsoleColour.YELLOW_BOLD);
+            System.out.print("\nSelect Option [1-5]\n\nENTER: ");
 
             choice = keyb.nextLine();
 
@@ -83,7 +90,8 @@ public class Console {
                     outputFile = keyb.nextLine();
                     break;
                 case "5":
-                    System.out.print("\nYou selected option 5\nBeginning processing...\nENTER: ");
+                    System.out.print("\n\nBeginning processing... \n\n");
+                    embeddingUtils.sleep(250);
                     beginProcessing(embeddingsFile, googleWordsFile, userFile, outputFile);
                     break;
                 case "6":
@@ -98,8 +106,6 @@ public class Console {
             }
 
             embeddingUtils.sleep(1000);
-
-
         }
 
     }

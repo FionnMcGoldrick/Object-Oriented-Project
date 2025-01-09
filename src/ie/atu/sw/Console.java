@@ -10,34 +10,30 @@ import java.util.ArrayList;
 
 public class Console {
 
-    //Constructor
+
     public Console() {
         startConsole();
     }
 
-    //Method to start the console
+
     private void startConsole(){
         menu();
     }
 
-    //Method to display the menu and take user choice
+
     private void menu(){
 
         Scanner keyb = new Scanner(System.in);
         String choice;
 
-        String embeddingsFile = "./resources/embeddings.txt"; //default embeddings file
-        String googleWordsFile = "./resources/google-1000.txt"; //default google words file
-        String outputFile = "./out.txt"; //default output file
-        String userFile = "./resources/userFile.txt"; //default user file
-
-        //Directory for Resources
-        final String DIRECTORY = "./resources/";
-
+        String embeddingsFile = "./resources/embeddings.txt";
+        String googleWordsFile = "./resources/google-1000.txt";
+        String outputFile = "./out.txt";
+        String userFile = "./resources/userFile.txt";
 
         while(true) {
 
-            //You should put the following code into a menu or Menu class
+
             System.out.println(ConsoleColour.WHITE);
             System.out.println("************************************************************");
             System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
@@ -53,15 +49,12 @@ public class Console {
             System.out.println("(6) Optional Extras...");
             System.out.println("(?) Quit");
 
-            //Output a menu of options and solicit text from the user
             System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
             System.out.print("Select Option [1-5]>");
             System.out.println();
 
-            //take user choice
             choice = keyb.nextLine();
 
-            //switch statement to handle user choice
             switch (choice) {
                 case "1":
                     System.out.println("You selected option 1\nPlease enter title of embeddings file:");
@@ -87,8 +80,8 @@ public class Console {
                     System.out.println("You selected option 6");
                     break;
                 case "?":
-                    System.out.println("You selected option ?");
-                    break;
+                    System.out.println("System exiting...");
+                    System.exit(0);
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
@@ -107,41 +100,30 @@ public class Console {
     */
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile){
 
-            //Create instances of the classes
             WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
             GoogleWordProcessor gwp = new GoogleWordProcessor();
             CommonWordFinder finder = new CommonWordFinder();
             Simplifier simplifier = new Simplifier();
 
-            //Store the embeddings in a map
             Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
             System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
 
-            //Load the google words
             List<String> googleWords = gwp.googleWords(googleWordsFile);
             System.out.println("Google Words: " + googleWords.size() + " words loaded.");
 
-            //Find common words
             List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
-            //Write common words with embeddings to a file
             finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
 
-            //Map to store the google-1000 word embeddings
             Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
             System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
 
-            //Read the user file
             List<String> userWords = readUserFile(userFile);
-            simplifier.simplify(embeddings, googleWordEmbeddings, userWords, outputFile);
-
-
-
+            simplifier.simplify(embeddings, userWords, userFile, outputFile);
 
         }
 
         public List<String> readUserFile(String userFile){
 
-            //read file word by word and store each word in a list of strings
             List<String> userWords = new ArrayList<>();
 
             try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {

@@ -25,20 +25,11 @@ public class CommonWordFinder {
         return commonWords;
     }
 
-    /*
-        * Write common words with embeddings to a file.
-        * @param commonWords
-        * @param embeddings
-        * @param googleWordFile
-        * @return void
-        * Running time: O(n) where n is the number of common words
-     */
     public void writeCommonWordsWithEmbeddings(List<String> commonWords, Map<String, double[]> embeddings, String googleWordFile) {
         try {
-            // Load existing content of the file
+
             Map<String, String> existingContent = loadExistingFileContent(googleWordFile);
 
-            // Check if all embeddings are already present
             boolean allEmbeddingsExist = true;
             for (String word : commonWords) {
                 if (!existingContent.containsKey(word)) {
@@ -47,21 +38,17 @@ public class CommonWordFinder {
                 }
             }
 
-            // If all embeddings are present, do nothing
             if (allEmbeddingsExist) {
                 System.out.println("All embeddings are already present. No changes made to: " + googleWordFile);
                 return;
             }
 
-            // Write updated content (append missing embeddings)
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(googleWordFile))) {
-                // Write existing content back to the file
                 for (Map.Entry<String, String> entry : existingContent.entrySet()) {
                     writer.write(entry.getKey() + entry.getValue());
                     writer.newLine();
                 }
 
-                // Append missing embeddings
                 for (String word : commonWords) {
                     if (!existingContent.containsKey(word)) {
                         double[] vector = embeddings.get(word);
@@ -86,14 +73,6 @@ public class CommonWordFinder {
 
     }
 
-    /*
-        * Load existing content of the file.
-        * Used to check if embeddings are already present.
-        * @param filePath
-        * @return Map<String, String>
-        * @throws IOException
-        * Running time: O(n) where n is the number of lines in the file
-     */
     private Map<String, String> loadExistingFileContent(String filePath) throws IOException {
         Map<String, String> content = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

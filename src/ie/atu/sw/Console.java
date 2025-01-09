@@ -55,7 +55,7 @@ public class Console {
 
             //Output a menu of options and solicit text from the user
             System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-            System.out.print("Select Option [1-4]>");
+            System.out.print("Select Option [1-5]>");
             System.out.println();
 
             //take user choice
@@ -147,6 +147,7 @@ public class Console {
             try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
                 String line;
                 while ((line = br.readLine()) != null) {
+                    line = line.replace(".", "");
                     String[] words = line.split("\\s+");
                     for (String word : words) {
                         userWords.add(word);

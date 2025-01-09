@@ -1,6 +1,7 @@
 package ie.atu.sw;
 
 import java.util.Scanner;
+import java.util.Map;
 
 public class Console {
 
@@ -92,8 +93,12 @@ public class Console {
         //Create new instance of WordEmbeddingsProccessor
         WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
 
-        //Begin storing embeddings in files
-        wep.storeFile(embeddingsFile);
+        // Begin storing embeddings in files
+        Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
+
+        // Print the embeddings to the console
+        wep.printEmbeddings(embeddings);
+
 
     }
 

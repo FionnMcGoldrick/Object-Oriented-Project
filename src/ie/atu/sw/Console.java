@@ -2,6 +2,7 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 import java.util.Map;
+import java.util.List;
 
 public class Console {
 
@@ -87,7 +88,6 @@ public class Console {
 
     }
 
-
    /*
     * Method to begin processing the files
     * @param embeddingsFile
@@ -97,32 +97,26 @@ public class Console {
     */
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String outputFile){
 
-        //Create new instances of processing classes
-        WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
-        GoogleWordProcessor gwp = new GoogleWordProcessor();
+            //Create instances of the classes
+            WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
+            GoogleWordProcessor gwp = new GoogleWordProcessor();
+            CommonWordFinder finder = new CommonWordFinder();
 
+            //Store the embeddings in a map
+            Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
+            System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
 
-        /*
-            * Load the embeddings file
-            * @param embeddingsFile
-            * @return Map<String, double[]>
-         */
-        Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
-        System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
+            //Load the google words
+            List<String> googleWords = gwp.googleWords(googleWordsFile);
+            System.out.println("Google Words: " + googleWords.size() + " words loaded.");
 
-        /*
-            * Load the google words file
-            * @param googleWordsFile
-            * @return Map<String, double[]>
-         */
-        gwp.storeFile(googleWordsFile);
+            //Find common words
+            List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
+            //Write common words with embeddings to a file
+            finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
 
-
-
+        }
 
 
     }
 
-
-
-}

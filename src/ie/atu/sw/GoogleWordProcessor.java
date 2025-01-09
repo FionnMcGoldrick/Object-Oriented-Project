@@ -22,12 +22,6 @@ public class GoogleWordProcessor extends AbstractProcessor{
 
         List<String> googleWordList = googleWords(filePath);
 
-        System.out.println("Google Word List: " + googleWordList.size());
-
-        //print out list of words
-        for(String word : googleWordList){
-            System.out.println(word);
-        }
 
 
         return null;

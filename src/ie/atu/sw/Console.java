@@ -111,6 +111,7 @@ public class Console {
             WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
             GoogleWordProcessor gwp = new GoogleWordProcessor();
             CommonWordFinder finder = new CommonWordFinder();
+            Simplifier simplifier = new Simplifier();
 
             //Store the embeddings in a map
             Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
@@ -131,33 +132,31 @@ public class Console {
 
             //Read the user file
             List<String> userWords = readUserFile(userFile);
+            simplifier.simplify(embeddings, googleWordEmbeddings, userWords, outputFile);
 
-            for(String word : userWords){
-                if(googleWordEmbeddings.containsKey(word)){
-                    System.out.println("Word: " + word + " Embeddings: " + googleWordEmbeddings.get(word));
-                } else {
-                    System.out.println("Word: " + word + " not found in Google Word Embeddings.");
-                }
-            }
+
 
 
         }
 
         public List<String> readUserFile(String userFile){
 
-            try(BufferedReader br = new BufferedReader(new FileReader(userFile))){
-                List<String> userWords = new ArrayList<>();
+            //read file word by word and store each word in a list of strings
+            List<String> userWords = new ArrayList<>();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
                 String line;
-                while((line = br.readLine()) != null){
-                    userWords.add(line);
+                while ((line = br.readLine()) != null) {
+                    String[] words = line.split("\\s+");
+                    for (String word : words) {
+                        userWords.add(word);
+                    }
                 }
-                return userWords;
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            return null;
-
+            return userWords;
 
         }
 

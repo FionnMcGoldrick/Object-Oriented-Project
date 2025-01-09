@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 public class WordEmbeddingsProccessor extends AbstractProcessor {
 
@@ -56,26 +55,20 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
      */
     public void processLines(String line, Map<String, double[]> embeddings) {
         try {
-            // Skip blank lines
-            if (line.trim().isEmpty()) {
-                System.err.println("Skipping blank line.");
-                return;
-            }
 
-            // Clean the line
+            /*
+                * Clean the line by removing extra commas, spaces and trailing commas
+                * Split the line into word and vector
+                * Add the word and vector to the map
+             */
             String cleanedLine = line.trim().replaceAll(",+", ",").replaceAll(",$", "").replaceAll(",\\s+", " ");
 
-            // Split into word and vector
+            // Split the line into word and vector
             String[] section = cleanedLine.split("\\s+");
-            if (section.length < 2) {
-                System.err.println("Skipping malformed line: " + cleanedLine);
-                return;
-            }
 
             String word = section[0];
             double[] vector = parseDoubles(section, 1);
 
-            // Log and add to the map
             if (vector.length > 0) {
                 embeddings.put(word, vector);
             } else {
@@ -87,8 +80,6 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
         }
     }
 
-
-
     /*
         * Help method to parse doubles from a string array
         * @param parts
@@ -96,15 +87,21 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
         * @return double[]
      */
     private double[] parseDoubles(String[] parts, int startIndex) {
+
+        // Create a list to store the vector
         List<Double> vectorList = new ArrayList<>();
+
+        // Loop through the parts array and add the values to the list
         for (int i = startIndex; i < parts.length; i++) {
             String value = parts[i].trim();
             try {
+                // Parse the value to a double and add it to the list
                 vectorList.add(Double.parseDouble(value));
             } catch (NumberFormatException e) {
                 System.err.println("Invalid number: [" + value + "]");
             }
         }
+        // Convert the list to an array and return it
         return vectorList.stream().mapToDouble(Double::doubleValue).toArray();
     }
 
@@ -114,7 +111,7 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
         * @return void
         * Used for debugging purposes
      */
-    public void printEmbeddings(Map<String, double[]> embeddings) {
+    /*public void printEmbeddings(Map<String, double[]> embeddings) {
 
         embeddings.forEach((word, vector) -> {
             System.out.print(word + " -> [");
@@ -126,6 +123,6 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
             }
             System.out.println("]");
         });
-    }
+    }*/
 
 }

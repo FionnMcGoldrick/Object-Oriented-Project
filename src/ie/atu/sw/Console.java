@@ -88,13 +88,33 @@ public class Console {
     }
 
 
-    //Method to begin processing
+   /*
+    * Method to begin processing the files
+    * @param embeddingsFile
+    * @param googleWordsFile
+    * @param outputFile
+    * @return void
+    */
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String outputFile){
         //Create new instance of WordEmbeddingsProccessor
         WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
 
+        /*
+            * Load the embeddings file
+            * @param embeddingsFile
+            * @return Map<String, double[]>
+         */
         Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
-        System.out.println("Embeddings: " + embeddings.size());
+        System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
+
+        /*
+            * Load the google words file
+            * @param googleWordsFile
+            * @return Map<String, double[]>
+         */
+        Map<String, double[]> googleWords = wep.storeFile(googleWordsFile);
+
+
 
 
 

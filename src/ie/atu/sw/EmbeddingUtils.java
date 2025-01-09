@@ -4,6 +4,13 @@ import java.util.Map;
 
 public class EmbeddingUtils {
 
+    /*
+    Similarity threshold for finding the most similar word
+    Ensures words aren't replaced with words with similarity scores below the threshold
+     */
+    private static final double SIMILARITY_THRESHOLD = 0.7;
+
+
     private static final CosineCalculator cosineCalculator = new CosineCalculator();
 
     public static String findMostSimilarWord(String targetWord, double[] targetVector, Map<String, double[]> embeddings) {
@@ -26,6 +33,27 @@ public class EmbeddingUtils {
             }
         }
 
-        return mostSimilarWord;
+        // Return the most similar word only if it meets the threshold
+        if (highestSimilarity >= SIMILARITY_THRESHOLD) {
+            return mostSimilarWord;
+        } else {
+            return targetWord; // Fallback to the original word
+        }
+    }
+
+
+    //method that clears the terminal
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    //sleep method
+    public static void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            System.err.println("Error sleeping: " + e.getMessage());
+        }
     }
 }

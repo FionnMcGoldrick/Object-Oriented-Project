@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Console {
 
+    EmbeddingUtils embeddingUtils = new EmbeddingUtils();
+
     /*
     * Constructor for the Console class
     * Runs the startConsole method as soon as a Console object is created
@@ -58,30 +60,30 @@ public class Console {
             System.out.println("(?) Quit");
 
             System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-            System.out.print("Select Option [1-5]>");
+            System.out.print("Select Option [1-5]");
             System.out.println();
 
             choice = keyb.nextLine();
 
             switch (choice) {
                 case "1":
-                    System.out.println("You selected option 1\nPlease enter title of embeddings file:");
+                    System.out.print("\nYou selected option 1\nPlease enter title of embeddings file\nENTER: ");
                     embeddingsFile = keyb.nextLine();
                     break;
                 case "2":
-                    System.out.println("You selected option 2\nPlease enter title of Google 1000 file:");
+                    System.out.print("\nYou selected option 2\nPlease enter title of Google 1000 file\nENTER: ");
                     googleWordsFile = keyb.nextLine();
                     break;
                 case "3":
-                    System.out.println("You selected option 3\nPlease enter title of file you want simplified:");
+                    System.out.print("\nYou selected option 3\nPlease enter title of file you want simplified:\nENTER: ");
                     userFile = keyb.nextLine();
                     break;
                 case "4":
-                    System.out.println("You selected option 4\nPlease enter title of output file:");
+                    System.out.print("\nYou selected option 4\nPlease enter title of output file\nENTER: ");
                     outputFile = keyb.nextLine();
                     break;
                 case "5":
-                    System.out.println("You selected option 5\nBeginning processing...");
+                    System.out.print("\nYou selected option 5\nBeginning processing...\nENTER: ");
                     beginProcessing(embeddingsFile, googleWordsFile, userFile, outputFile);
                     break;
                 case "6":
@@ -94,6 +96,9 @@ public class Console {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
+
+            embeddingUtils.sleep(1000);
+
 
         }
 

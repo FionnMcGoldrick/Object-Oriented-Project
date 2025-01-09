@@ -88,6 +88,9 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
             // Parsing the doubles from the section
             double[] vector = parseDoubles(section, 1);
 
+            // Adding the word and its embeddings to the map
+            embeddings.put(word, vector);
+
         } catch (Exception e) {
             System.err.println("Error processing line: " + line);
             e.printStackTrace();

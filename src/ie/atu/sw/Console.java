@@ -52,7 +52,7 @@ public class Console {
             System.out.println("(1) Specify Embeddings File (default: ./resources/embeddings.txt)");
             System.out.println("(2) Specify Google 1000 File (default: ./resources/google-1000.txt)");
             System.out.println("(3) Specify the file you want simplified (default: ./resources/google-1000.txt)");
-            System.out.println("(4) Specify an Output File (default: ./out.txt)");
+            System.out.println("(4) Specify an Output File (default: ./output.txt)");
             System.out.println("(5) Execute, Analyse and Report");
             System.out.println("(6) Optional Extras...");
             System.out.println("(?) Quit");

@@ -93,11 +93,9 @@ public class Console {
         //Create new instance of WordEmbeddingsProccessor
         WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
 
-        // Begin storing embeddings in files
         Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
+        System.out.println("Embeddings: " + embeddings.size());
 
-        // Print the embeddings to the console
-        wep.printEmbeddings(embeddings);
 
 
     }

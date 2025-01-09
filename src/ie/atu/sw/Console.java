@@ -157,7 +157,7 @@ public class Console {
             * @see Simplifier
              */
             List<String> userWords = readUserFile(userFile);
-            simplifier.simplify(embeddings, userWords, userFile, outputFile);
+            simplifier.simplify(embeddings, userFile, outputFile);
 
         }
 

@@ -20,10 +20,15 @@ public class GoogleWordProcessor extends AbstractProcessor{
         //Create a new instance of the ExecutorService class
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
-        //Try block to read the file
         List<String> googleWordList = googleWords(filePath);
 
-        googleWordList.size();
+        System.out.println("Google Word List: " + googleWordList.size());
+
+        //print out list of words
+        for(String word : googleWordList){
+            System.out.println(word);
+        }
+
 
         return null;
 

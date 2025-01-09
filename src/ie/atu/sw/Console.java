@@ -22,7 +22,7 @@ public class Console {
         String choice;
 
         String embeddingsFile = "./resources/embeddings.txt"; //default embeddings file
-        String googleWordsFile = "./resources/google-10000.txt"; //default google words file
+        String googleWordsFile = "./resources/google-1000.txt"; //default google words file
         String outputFile = "./out.txt"; //default output file
 
         //Directory for Resources
@@ -96,8 +96,11 @@ public class Console {
     * @return void
     */
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String outputFile){
-        //Create new instance of WordEmbeddingsProccessor
+
+        //Create new instances of processing classes
         WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
+        GoogleWordProcessor gwp = new GoogleWordProcessor();
+
 
         /*
             * Load the embeddings file
@@ -112,7 +115,7 @@ public class Console {
             * @param googleWordsFile
             * @return Map<String, double[]>
          */
-        Map<String, double[]> googleWords = wep.storeFile(googleWordsFile);
+        gwp.storeFile(googleWordsFile);
 
 
 

@@ -1,16 +1,15 @@
 package ie.atu.sw;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Console {
 
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
+    UserFileProcessor userProcessor = new UserFileProcessor();
+
+    // final strings for the directory and file types
     final String DIRECTORY = "./resources/";
     final String TXT = ".txt";
 
@@ -67,7 +66,7 @@ public class Console {
             embeddingUtils.sleep(250);
             System.out.println("(5) Execute, Analyse and Report");
             embeddingUtils.sleep(250);
-            System.out.println("(6) Optional Extras...");
+            System.out.println("(6) Create and write a file to be simplified");
             embeddingUtils.sleep(250);
             System.out.println("(?) Quit");
 
@@ -101,6 +100,7 @@ public class Console {
                     break;
                 case "6":
                     System.out.println("You selected option 6");
+                    userProcessor.writeUserFile(DIRECTORY, TXT);
                     break;
                 case "?":
                     System.out.println("System exiting...");
@@ -172,7 +172,7 @@ public class Console {
             * @param Map<String, double[]> embeddings, List<String> userWords, String userFile, String outputFile
             * @see Simplifier
              */
-            List<String> userWords = readUserFile(userFile);
+            List<String> userWords = userProcessor.readUserFile(userFile);
             simplifier.simplify(embeddings, userFile, outputFile);
 
         }
@@ -182,31 +182,7 @@ public class Console {
         * @return List<String>
         * @param String userFile
          */
-        public List<String> readUserFile(String userFile){
 
-            // Create a list to store the words
-            List<String> userWords = new ArrayList<>();
-
-            /*
-            * Read the user file with BufferReader and store the words in a list
-            * @return List<String>
-            * @param String userFile
-             */
-            try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    line = line.replace(".", ""); // Remove full stops
-                    String[] words = line.split("\\s+"); // Split the line into words
-                    for (String word : words) {
-                        userWords.add(word);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return userWords;
-        }
 
     }
 

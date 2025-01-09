@@ -25,6 +25,7 @@ public class Console {
         String embeddingsFile = "./resources/embeddings.txt"; //default embeddings file
         String googleWordsFile = "./resources/google-1000.txt"; //default google words file
         String outputFile = "./out.txt"; //default output file
+        String userFile = "./resources/myfile.txt"; //default user file
 
         //Directory for Resources
         final String DIRECTORY = "./resources/";
@@ -40,11 +41,12 @@ public class Console {
             System.out.println("*             Virtual Threaded Text Simplifier             *");
             System.out.println("*                                                          *");
             System.out.println("************************************************************");
-            System.out.println("(1) Specify Embeddings File");
-            System.out.println("(2) Specify Google 1000 File");
-            System.out.println("(3) Specify an Output File (default: ./out.txt)");
-            System.out.println("(4) Execute, Analyse and Report");
-            System.out.println("(5) Optional Extras...");
+            System.out.println("(1) Specify Embeddings File (default: ./resources/embeddings.txt)");
+            System.out.println("(2) Specify Google 1000 File (default: ./resources/google-1000.txt)");
+            System.out.println("(3) Specify the file you want simplified (default: ./resources/google-1000.txt)");
+            System.out.println("(4) Specify an Output File (default: ./out.txt)");
+            System.out.println("(5) Execute, Analyse and Report");
+            System.out.println("(6) Optional Extras...");
             System.out.println("(?) Quit");
 
             //Output a menu of options and solicit text from the user
@@ -66,15 +68,19 @@ public class Console {
                     googleWordsFile = keyb.nextLine();
                     break;
                 case "3":
-                    System.out.println("You selected option 3\nPlease enter title of output file:");
-                    outputFile = keyb.nextLine();
+                    System.out.println("You selected option 3\nPlease enter title of file you want simplified:");
+                    userFile = keyb.nextLine();
                     break;
                 case "4":
-                    System.out.println("You selected option 4\nBeginning processing...");
-                    beginProcessing(embeddingsFile, googleWordsFile, outputFile);
+                    System.out.println("You selected option 4\nPlease enter title of output file:");
+                    outputFile = keyb.nextLine();
                     break;
                 case "5":
-                    System.out.println("You selected option 5");
+                    System.out.println("You selected option 5\nBeginning processing...");
+                    beginProcessing(embeddingsFile, googleWordsFile, userFile, outputFile);
+                    break;
+                case "6":
+                    System.out.println("You selected option 6");
                     break;
                 case "?":
                     System.out.println("You selected option ?");
@@ -95,7 +101,7 @@ public class Console {
     * @param outputFile
     * @return void
     */
-    private void beginProcessing(String embeddingsFile, String googleWordsFile, String outputFile){
+    private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile){
 
             //Create instances of the classes
             WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
@@ -114,6 +120,10 @@ public class Console {
             List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
             //Write common words with embeddings to a file
             finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
+
+            //Map to store the google-1000 word embeddings
+            Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
+            System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
 
         }
 

@@ -1,0 +1,6 @@
+Giving a random paragraph to write in the file.
+Welcome to my project.
+I am a student of computer science.
+I am learning file handling in Java.
+I am writing this paragraph in a file.
+I am going to read this paragraph from the file.

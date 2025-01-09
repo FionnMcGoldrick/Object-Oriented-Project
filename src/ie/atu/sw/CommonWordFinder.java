@@ -22,7 +22,6 @@ public class CommonWordFinder {
             }
         }
 
-        System.out.println("Common Words Found: " + commonWords.size());
         return commonWords;
     }
 

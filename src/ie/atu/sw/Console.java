@@ -8,10 +8,17 @@ public class Console {
 
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
     UserFileProcessor userProcessor = new UserFileProcessor();
+    WordSearch wordSearch = new WordSearch();
 
     // final strings for the directory and file types
     final String DIRECTORY = "./resources/";
     final String TXT = ".txt";
+
+    // Default file paths
+    String embeddingsFile = DIRECTORY + "embeddings" + TXT;
+    String googleWordsFile = DIRECTORY + "google-1000" + TXT;
+    String outputFile = DIRECTORY + "output" + TXT;
+    String userFile = DIRECTORY + "userFile" + TXT;
 
 
     /*
@@ -38,11 +45,7 @@ public class Console {
         Scanner keyb = new Scanner(System.in);
         String choice;
 
-        // Default file paths
-        String embeddingsFile = DIRECTORY + "embeddings" + TXT;
-        String googleWordsFile = DIRECTORY + "google-1000" + TXT;
-        String outputFile = DIRECTORY + "output" + TXT;
-        String userFile = DIRECTORY + "userFile" + TXT;
+
 
         while(true) {
 
@@ -99,6 +102,10 @@ public class Console {
                 case "6":
                     System.out.println("You selected option 6");
                     userProcessor.writeUserFile(DIRECTORY, TXT);
+                    break;
+                    case "7":
+                    System.out.println("You selected option 7");
+                    handleSearch();
                     break;
                 case "?":
                     System.out.println("System exiting...");
@@ -172,6 +179,20 @@ public class Console {
              */
             simplifier.simplify(embeddings, userFile, outputFile);
 
+        }
+
+            /*
+            * Method to handle the search functionality
+            * @return void
+            * @param void
+            * @see WordSearch
+             */
+            private void handleSearch(){
+                Scanner keyb = new Scanner(System.in);
+                String searchWord;
+                System.out.print("Enter the word you want to search for: ");
+                searchWord = keyb.nextLine();
+                wordSearch.search(searchWord, embeddingsFile);
         }
 
 

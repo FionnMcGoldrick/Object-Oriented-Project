@@ -50,6 +50,42 @@ public class EmbeddingUtils {
         }
     }
 
+    //method that returns the top 5 closest words
+    public String[] findTopFiveSimilarWords(String targetWord, double[] targetVector, Map<String, double[]> embeddings) {
+        String[] top5SimilarWords = new String[5];
+        double[] top5Similarity = new double[5];
+        for (int i = 0; i < 5; i++) {
+            top5Similarity[i] = Double.NEGATIVE_INFINITY;
+        }
+
+        // For each word in the embeddings, calculate the cosine similarity between the target word and the word
+        for (Map.Entry<String, double[]> entry : embeddings.entrySet()) {
+            String word = entry.getKey();
+            double[] vector = entry.getValue();
+
+            if (word.equals(targetWord)) {
+                continue;
+            }
+
+            // Calculate the cosine similarity between the target word and the word
+            double similarity = cosineCalculator.calculate(targetVector, vector);
+            // Update the highest similarity and the most similar word if the similarity is higher than the highest similarity found so far
+            for (int i = 0; i < 5; i++) {
+                if (similarity > top5Similarity[i]) {
+                    for (int j = 4; j > i; j--) {
+                        top5Similarity[j] = top5Similarity[j - 1];
+                        top5SimilarWords[j] = top5SimilarWords[j - 1];
+                    }
+                    top5Similarity[i] = similarity;
+                    top5SimilarWords[i] = word;
+                    break;
+                }
+            }
+        }
+
+        return top5SimilarWords;
+    }
+
     //sleep method
     public void sleep(int time) {
         try {
@@ -58,4 +94,11 @@ public class EmbeddingUtils {
             System.err.println("Error sleeping: " + e.getMessage());
         }
     }
+
+    //method that gets embeddings hashmap
+    public Map<String, double[]> getEmbeddings(String filepath) {
+        WordEmbeddingsProcessor wordEmbeddingsProcessor = new WordEmbeddingsProcessor();
+        return wordEmbeddingsProcessor.storeFile(filepath);
+    }
+
 }

@@ -20,7 +20,7 @@ public class EmbeddingUtils {
     * @param embeddings A map containing word embeddings
     * @return String / The most similar word to the target word
      */
-    public static String findMostSimilarWord(String targetWord, double[] targetVector, Map<String, double[]> embeddings) {
+    public String findMostSimilarWord(String targetWord, double[] targetVector, Map<String, double[]> embeddings) {
         String mostSimilarWord = null;
         double highestSimilarity = Double.NEGATIVE_INFINITY;
 
@@ -35,7 +35,6 @@ public class EmbeddingUtils {
 
             // Calculate the cosine similarity between the target word and the word
             double similarity = cosineCalculator.calculate(targetVector, vector);
-
             // Update the highest similarity and the most similar word if the similarity is higher than the highest similarity found so far
             if (similarity > highestSimilarity) {
                 highestSimilarity = similarity;

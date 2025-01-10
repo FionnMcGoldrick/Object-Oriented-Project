@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordEmbeddingsProccessor extends AbstractProcessor {
+public class WordEmbeddingsProcessor extends AbstractProcessor {
+
+    private static final String REGEX_CLEAN_LINE = ",+|,$|,\\s+"; // Regex to clean the line
 
     /*
      * This method is used to store the content of a file
@@ -20,6 +22,7 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
      * @return A map containing word embeddings
      * @See Interface Process
      */
+    @Override
     public Map<String, double[]> storeFile(String filePath) {
 
         /*
@@ -73,11 +76,12 @@ public class WordEmbeddingsProccessor extends AbstractProcessor {
         * @return void
         * @See Interface Process
      */
+    @Override
     public void processLines(String line, Map<String, double[]> embeddings) {
         try {
 
             // Cleaning the line by removing extra commas and spaces
-            String cleanedLine = line.trim().replaceAll(",+", ",").replaceAll(",$", "").replaceAll(",\\s+", " ");
+            String cleanedLine = line.trim().replaceAll(REGEX_CLEAN_LINE, " ");
 
             // Splitting the cleaned line by spaces
             String[] section = cleanedLine.split("\\s+");

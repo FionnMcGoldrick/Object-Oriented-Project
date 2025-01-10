@@ -36,7 +36,12 @@ public class UserFileProcessor {
         return userWords;
     }
 
-
+    /**
+     * This method is used to write a file with user input
+     * @param DIRECTORY The directory to write the file to
+     * @param TXT The file extension
+     * @return void
+     */
     public void writeUserFile(String DIRECTORY, String TXT){
 
         System.out.println("---------------------------------");
@@ -53,6 +58,11 @@ public class UserFileProcessor {
 
     }
 
+    /**
+     * This method is used to create a file
+     * @param title The title of the file
+     * @return File
+     */
     private File handleFileCreation(String title){
 
         File file = new File(title);
@@ -69,6 +79,11 @@ public class UserFileProcessor {
         return file;
     }
 
+    /**
+     * This method is used to write to a file
+     * @param file The file to write to
+     * @return void
+     */
     private void writeToUserFile(File file){
 
         try(FileWriter writer = new FileWriter(file)){
@@ -76,7 +91,7 @@ public class UserFileProcessor {
             System.out.println("Enter text to write to file: ");
             String text = keyb.nextLine();
             writer.write(text);
-            System.out.println("Text written to file.\n");
+            System.out.println("Text written to file.");
         } catch (IOException e){
             System.out.println("Error: " + e);
         }

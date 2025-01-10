@@ -11,7 +11,7 @@ public interface Process {
      * @param embeddings A map containing word embeddings
      * @return void
      */
-    public void processLines(String line, Map<String, double[]> embeddings);
+    void processLines(String line, Map<String, double[]> embeddings);
 
     /*
      * This method is used to store the content of a file
@@ -19,6 +19,6 @@ public interface Process {
      * @param filePath The path to the file
      * @return A map containing word embeddings
      */
-    public Map<String, double[]> storeFile(String filePath);
+    Map<String, double[]> storeFile(String filePath);
 
 }

@@ -44,8 +44,6 @@ public class Console {
         String outputFile = DIRECTORY + "output" + TXT;
         String userFile = DIRECTORY + "userFile" + TXT;
 
-        StringBuilder sb = new StringBuilder();
-
         while(true) {
 
             System.out.println(ConsoleColour.WHITE);
@@ -72,7 +70,7 @@ public class Console {
 
             embeddingUtils.sleep(250);
             System.out.print(ConsoleColour.YELLOW_BOLD);
-            System.out.print("\nSelect Option [1-5]\n\nENTER: ");
+            System.out.print("\nSelect Option [1-6]\n\nENTER: ");
 
             choice = keyb.nextLine();
 
@@ -124,7 +122,7 @@ public class Console {
     private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile){
 
             // Create instances of the classes
-            WordEmbeddingsProccessor wep = new WordEmbeddingsProccessor();
+            WordEmbeddingsProcessor wep = new WordEmbeddingsProcessor();
             GoogleWordProcessor gwp = new GoogleWordProcessor();
             CommonWordFinder finder = new CommonWordFinder();
             Simplifier simplifier = new Simplifier();
@@ -169,19 +167,12 @@ public class Console {
             /*
             * Simplify the user file using the embeddings
             * @return void
-            * @param Map<String, double[]> embeddings, List<String> userWords, String userFile, String outputFile
+            * @param Map<String, double[]> embeddings, String userFile, String outputFile
             * @see Simplifier
              */
-            List<String> userWords = userProcessor.readUserFile(userFile);
             simplifier.simplify(embeddings, userFile, outputFile);
 
         }
-
-        /*
-        * Method to read the user file and store the words in a list
-        * @return List<String>
-        * @param String userFile
-         */
 
 
     }

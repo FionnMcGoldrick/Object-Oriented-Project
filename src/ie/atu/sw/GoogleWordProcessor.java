@@ -20,6 +20,7 @@ public class GoogleWordProcessor extends AbstractProcessor{
      * @return A map containing word embeddings
      * @See Interface Process
      */
+    @Override
     public Map<String, double[]> storeFile(String filePath) {
 
         /*
@@ -71,6 +72,7 @@ public class GoogleWordProcessor extends AbstractProcessor{
      * @return void
      * @See Interface Process
      */
+    @Override
     public void processLines(String line, Map<String, double[]> googleWordEmbeddings) {
         try {
             // Splitting the line by whitespace

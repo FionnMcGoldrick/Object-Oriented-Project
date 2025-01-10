@@ -27,7 +27,6 @@ public class CommonWordFinder {
                 commonWords.add(word);
             }
         }
-
         return commonWords;
     }
 

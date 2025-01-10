@@ -14,11 +14,11 @@ public class Simplifier {
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
 
     /*
-        * This method simplifies the content of a file by replacing each word with the most similar word in the embeddings.
-        * @param embeddings A map containing word embeddings
-        * @param userFile The file to be simplified
-        * @param outputFile The file to write the simplified content to
-        * @return void
+     * This method simplifies the content of a file by replacing each word with the most similar word in the embeddings.
+     * @param embeddings A map containing word embeddings
+     * @param userFile The file to be simplified
+     * @param outputFile The file to write the simplified content to
+     * @return void
      */
     public void simplify(Map<String, double[]> embeddings, String userFile, String outputFile) {
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile));

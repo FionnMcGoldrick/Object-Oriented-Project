@@ -14,11 +14,11 @@ public class CosineCalculator {
         double norm2 = 0.0;
 
         /*
-            * Calculate the dot product and the norms of the two vectors
-            * The cosine similarity is calculated as the dot product of the two vectors divided by the product of their norms
-            * @param vector1 The first vector
-            * @param vector2 The second vector
-            * @return The cosine similarity between the two vectors
+         * Calculate the dot product and the norms of the two vectors
+         * The cosine similarity is calculated as the dot product of the two vectors divided by the product of their norms
+         * @param vector1 The first vector
+         * @param vector2 The second vector
+         * @return The cosine similarity between the two vectors
          */
         for (int i = 0; i < vector1.length; i++) {
             dotProduct += vector1[i] * vector2[i];

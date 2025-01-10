@@ -10,7 +10,7 @@ public class UserFileProcessor {
     Scanner keyb = new Scanner(System.in);
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
 
-    public List<String> readUserFile(String userFile){
+    public List<String> readUserFile(String userFile) {
 
         // Create a list to store the words
         List<String> userWords = new ArrayList<>();
@@ -38,11 +38,12 @@ public class UserFileProcessor {
 
     /**
      * This method is used to write a file with user input
+     *
      * @param DIRECTORY The directory to write the file to
-     * @param TXT The file extension
+     * @param TXT       The file extension
      * @return void
      */
-    public void writeUserFile(String DIRECTORY, String TXT){
+    public void writeUserFile(String DIRECTORY, String TXT) {
 
         System.out.println("---------------------------------");
         System.out.print("File Title: ");
@@ -60,19 +61,20 @@ public class UserFileProcessor {
 
     /**
      * This method is used to create a file
+     *
      * @param title The title of the file
      * @return File
      */
-    private File handleFileCreation(String title){
+    private File handleFileCreation(String title) {
 
         File file = new File(title);
-        try{
-            if(file.createNewFile()){
+        try {
+            if (file.createNewFile()) {
                 System.out.println("File created: " + file.getAbsolutePath());
             } else {
                 System.out.println("File already exists.");
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error: " + e);
         }
 
@@ -81,18 +83,19 @@ public class UserFileProcessor {
 
     /**
      * This method is used to write to a file
+     *
      * @param file The file to write to
      * @return void
      */
-    private void writeToUserFile(File file){
+    private void writeToUserFile(File file) {
 
-        try(FileWriter writer = new FileWriter(file)){
+        try (FileWriter writer = new FileWriter(file)) {
             System.out.println("---------------------------------");
             System.out.println("Enter text to write to file: ");
             String text = keyb.nextLine();
             writer.write(text);
             System.out.println("Text written to file.");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error: " + e);
         }
     }

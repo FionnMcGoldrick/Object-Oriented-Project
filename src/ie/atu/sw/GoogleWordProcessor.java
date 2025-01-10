@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
-public class GoogleWordProcessor extends AbstractProcessor{
+public class GoogleWordProcessor extends AbstractProcessor {
 
     /*
      * This method is used to store the content of a file
@@ -24,8 +24,8 @@ public class GoogleWordProcessor extends AbstractProcessor{
     public Map<String, double[]> storeFile(String filePath) {
 
         /*
-            * Creating a ConcurrentHashMap to store the word embeddings
-            * ConcurrentHashmap used to allow for concurrent access to the map from virtual threads
+         * Creating a ConcurrentHashMap to store the word embeddings
+         * ConcurrentHashmap used to allow for concurrent access to the map from virtual threads
          */
         Map<String, double[]> googleWordEmbeddings = new ConcurrentHashMap<>();
 
@@ -34,9 +34,9 @@ public class GoogleWordProcessor extends AbstractProcessor{
 
 
         /*
-            * Try with resources to read the file
-            * Using a BufferedReader to read the file line by line
-            * Submitting each line to the executor to be processed
+         * Try with resources to read the file
+         * Using a BufferedReader to read the file line by line
+         * Submitting each line to the executor to be processed
          */
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
@@ -85,8 +85,8 @@ public class GoogleWordProcessor extends AbstractProcessor{
             double[] embeddings = new double[parts.length - 1];
 
             /*
-                * For each part of the line, parse the double and add it to the embeddings array
-                * Skip the first part as it is the word
+             * For each part of the line, parse the double and add it to the embeddings array
+             * Skip the first part as it is the word
              */
             for (int i = 1; i < parts.length; i++) {
                 // Remove any trailing commas and whitespace
@@ -106,19 +106,19 @@ public class GoogleWordProcessor extends AbstractProcessor{
     }
 
     /*
-        * This method is used to read the words from the google words file
-        * @param filepath The path to the file
-        * @return A list of String (words)
+     * This method is used to read the words from the google words file
+     * @param filepath The path to the file
+     * @return A list of String (words)
      */
-    public List <String> googleWords(String filepath){
-        try(BufferedReader br = new BufferedReader(new FileReader(filepath))){
+    public List<String> googleWords(String filepath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             List<String> googleWords = new ArrayList<>();
             String line;
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 googleWords.add(line);
             }
             return googleWords;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

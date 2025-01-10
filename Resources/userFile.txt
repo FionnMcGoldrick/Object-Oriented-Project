@@ -1,9 +1,0 @@
-The application should process a specified target text file word-by-word and dynamically swap
-every word for its synonym from the Google-1000 list. The similarity between words should be
-computed from the reduced set of 59,602 GloVE word embeddings provided. As shown in the
-diagram above, this will require loading and processing all word embeddings into a map data
-structure, generating a second map that relates each Google-1000 word with its embedding, and
-then searching / swapping each word in the target text with its Google-1000 equivalent based on the
-highest similarity score. The application must use virtual threads to concurrently process each word
-in the embeddings, Google-1000 and target text files. When the target text file has been processed,
-the results should be saved to specified file

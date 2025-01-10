@@ -11,7 +11,7 @@ public class Console {
     WordSearch wordSearch = new WordSearch();
 
     // final strings for the directory and file types
-    final String DIRECTORY = "./resources/";
+    final String DIRECTORY = "./src/";
     final String TXT = ".txt";
 
     // Default file paths
@@ -56,13 +56,13 @@ public class Console {
             System.out.println("*                                                          *");
             System.out.println("************************************************************");
             embeddingUtils.sleep(250);
-            System.out.println("(1) Specify Embeddings File (default: ./resources/embeddings.txt)");
+            System.out.println("(1) Specify Embeddings File (default: ./src/embeddings.txt)");
             embeddingUtils.sleep(250);
-            System.out.println("(2) Specify Google 1000 File (default: ./resources/google-1000.txt)");
+            System.out.println("(2) Specify Google 1000 File (default: ./src/google-1000.txt)");
             embeddingUtils.sleep(250);
-            System.out.println("(3) Specify the file you want simplified (default: ./resources/google-1000.txt)");
+            System.out.println("(3) Specify the file you want simplified (default: ./src/google-1000.txt)");
             embeddingUtils.sleep(250);
-            System.out.println("(4) Specify an Output File (default: ./output.txt)");
+            System.out.println("(4) Specify an Output File (default: ./src/output.txt)");
             embeddingUtils.sleep(250);
             System.out.println("(5) Execute, Analyse and Report");
             embeddingUtils.sleep(250);
@@ -74,7 +74,7 @@ public class Console {
 
             embeddingUtils.sleep(250);
             System.out.print(ConsoleColour.YELLOW_BOLD);
-            System.out.print("\nSelect Option [1-6]\n\nENTER: ");
+            System.out.print("\nSelect Option [1-7]\n\nENTER: ");
 
             choice = keyb.nextLine();
 

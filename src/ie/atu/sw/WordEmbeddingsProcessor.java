@@ -26,8 +26,8 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
     public Map<String, double[]> storeFile(String filePath) {
 
         /*
-            * Creating a ConcurrentHashMap to store the word embeddings
-            * ConcurrentHashmap used to allow for concurrent access to the map from virtual threads
+         * Creating a ConcurrentHashMap to store the word embeddings
+         * ConcurrentHashmap used to allow for concurrent access to the map from virtual threads
          */
         Map<String, double[]> embeddings = new ConcurrentHashMap<>();
 
@@ -35,9 +35,9 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
         /*
-            * Try with resources to read the file
-            * Using a BufferedReader to read the file line by line
-            * Submitting each line to the executor to be processed
+         * Try with resources to read the file
+         * Using a BufferedReader to read the file line by line
+         * Submitting each line to the executor to be processed
          */
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -45,9 +45,9 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
                 String finalLine = line;
 
                 /*
-                    * Submitting the line to the executor
-                    * Using a lambda expression to process the line
-                    * This allows for the processing of the line to be done in a separate thread
+                 * Submitting the line to the executor
+                 * Using a lambda expression to process the line
+                 * This allows for the processing of the line to be done in a separate thread
                  */
                 executor.submit(() -> processLines(finalLine, embeddings));
             }
@@ -70,11 +70,11 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
     }
 
     /*
-        * This method is used to process lines from the file
-        * @param line The line to be processed
-        * @param embeddings A map containing word embeddings
-        * @return void
-        * @See Interface Process
+     * This method is used to process lines from the file
+     * @param line The line to be processed
+     * @param embeddings A map containing word embeddings
+     * @return void
+     * @See Interface Process
      */
     @Override
     public void processLines(String line, Map<String, double[]> embeddings) {
@@ -102,10 +102,10 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
     }
 
     /*
-        * This helper method is used to parse doubles from a string array
-        * @param parts The string array to parse
-        * @param startIndex The index to start parsing from
-        * @return An array of doubles
+     * This helper method is used to parse doubles from a string array
+     * @param parts The string array to parse
+     * @param startIndex The index to start parsing from
+     * @return An array of doubles
      */
     private double[] parseDoubles(String[] parts, int startIndex) {
 
@@ -113,9 +113,9 @@ public class WordEmbeddingsProcessor extends AbstractProcessor {
         List<Double> vectorList = new ArrayList<>();
 
         /*
-            * For each part of the line, parse the double and add it to the vectorList
-            * Skip the first part as it is the word
-            * If the value is not a valid double, print an error message
+         * For each part of the line, parse the double and add it to the vectorList
+         * Skip the first part as it is the word
+         * If the value is not a valid double, print an error message
          */
         for (int i = startIndex; i < parts.length; i++) {
             String value = parts[i].trim();

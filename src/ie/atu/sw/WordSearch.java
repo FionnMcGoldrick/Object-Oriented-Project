@@ -7,10 +7,10 @@ public class WordSearch {
     EmbeddingUtils embeddingUtils = new EmbeddingUtils();
 
     /*
-        * Method to search for a word in the embeddings file
-        * @param word The word to search for
-        * @param filePath The path to the embeddings file
-        * @return void
+     * Method to search for a word in the embeddings file
+     * @param word The word to search for
+     * @param filePath The path to the embeddings file
+     * @return void
      */
     public void search(String word, String filePath) {
 
@@ -35,15 +35,20 @@ public class WordSearch {
     }
 
     /*
-        * Method to print the top 5 similar words
-        * @param topFiveWords An array containing the top 5 similar words
-        * @return void
+     * Method to print the top 5 similar words
+     * @param topFiveWords An array containing the top 5 similar words
+     * @return void
      */
     public void printTopFiveWords(String[] topFiveWords) {
         System.out.println("The top 5 similar words are:");
+        //change console color to grey
+        System.out.println(ConsoleColour.CYAN);
         for (String word : topFiveWords) {
             System.out.println("> " + word);
+            embeddingUtils.sleep(250);
         }
+        //reset console color
+        System.out.println(ConsoleColour.YELLOW);
     }
 
 }

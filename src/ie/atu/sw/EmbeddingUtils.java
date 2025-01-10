@@ -14,11 +14,11 @@ public class EmbeddingUtils {
     private static final CosineCalculator cosineCalculator = new CosineCalculator();
 
     /*
-    * This method finds the most similar word to a target word in the embeddings.
-    * @param targetWord The target word
-    * @param targetVector The vector representation of the target word
-    * @param embeddings A map containing word embeddings
-    * @return String / The most similar word to the target word
+     * This method finds the most similar word to a target word in the embeddings.
+     * @param targetWord The target word
+     * @param targetVector The vector representation of the target word
+     * @param embeddings A map containing word embeddings
+     * @return String / The most similar word to the target word
      */
     public String findMostSimilarWord(String targetWord, double[] targetVector, Map<String, double[]> embeddings) {
         String mostSimilarWord = null;
@@ -96,10 +96,10 @@ public class EmbeddingUtils {
     }
 
     /*
-    * This method is used to get the embeddings from a file
-    * @param filepath The path to the file
-    * @return A map containing word embeddings
-    * @See WordEmbeddingsProcessor
+     * This method is used to get the embeddings from a file
+     * @param filepath The path to the file
+     * @return A map containing word embeddings
+     * @See WordEmbeddingsProcessor
      */
     public Map<String, double[]> getEmbeddings(String filepath) {
         WordEmbeddingsProcessor wordEmbeddingsProcessor = new WordEmbeddingsProcessor();

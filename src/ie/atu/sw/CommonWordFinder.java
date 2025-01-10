@@ -57,8 +57,8 @@ public class CommonWordFinder {
             }
 
             /*
-                * Write the common words with embeddings to the file
-                * If the word is not already present in the file, add it with its embeddings
+             * Write the common words with embeddings to the file
+             * If the word is not already present in the file, add it with its embeddings
              */
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(googleWordFile))) {
                 // Write the existing content of the file
@@ -68,8 +68,8 @@ public class CommonWordFinder {
                 }
 
                 /*
-                    * For each common word, check if it is already present in the file.
-                    * If it is not present, add it with its embeddings.
+                 * For each common word, check if it is already present in the file.
+                 * If it is not present, add it with its embeddings.
                  */
                 for (String word : commonWords) {
                     if (!existingContent.containsKey(word)) {

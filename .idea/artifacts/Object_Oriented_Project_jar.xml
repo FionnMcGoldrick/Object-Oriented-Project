@@ -2,6 +2,9 @@
   <artifact type="jar" name="Object-Oriented-Project:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Object_Oriented_Project_jar</output-path>
     <root id="archive" name="Object-Oriented-Project.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="Object-Oriented-Project" />
     </root>
   </artifact>

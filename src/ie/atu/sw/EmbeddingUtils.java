@@ -95,7 +95,12 @@ public class EmbeddingUtils {
         }
     }
 
-    //method that gets embeddings hashmap
+    /*
+    * This method is used to get the embeddings from a file
+    * @param filepath The path to the file
+    * @return A map containing word embeddings
+    * @See WordEmbeddingsProcessor
+     */
     public Map<String, double[]> getEmbeddings(String filepath) {
         WordEmbeddingsProcessor wordEmbeddingsProcessor = new WordEmbeddingsProcessor();
         return wordEmbeddingsProcessor.storeFile(filepath);

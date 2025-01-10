@@ -22,32 +22,31 @@ public class Console {
 
 
     /*
-    * Constructor for the Console class
-    * Runs the startConsole method as soon as a Console object is created
-    * @return void
-    * @param void
+     * Constructor for the Console class
+     * Runs the startConsole method as soon as a Console object is created
+     * @return void
+     * @param void
      */
     public Console() {
         startConsole();
     }
 
-    private void startConsole(){
+    private void startConsole() {
         menu();
     }
 
     /*
-    * Method to display the menu options and to handle user input
-    * @return void
-    * @param void
+     * Method to display the menu options and to handle user input
+     * @return void
+     * @param void
      */
-    private void menu(){
+    private void menu() {
 
         Scanner keyb = new Scanner(System.in);
         String choice;
 
 
-
-        while(true) {
+        while (true) {
 
             System.out.println(ConsoleColour.WHITE);
             System.out.println("************************************************************");
@@ -68,6 +67,8 @@ public class Console {
             System.out.println("(5) Execute, Analyse and Report");
             embeddingUtils.sleep(250);
             System.out.println("(6) Create and write a file to be simplified");
+            embeddingUtils.sleep(250);
+            System.out.println("(7) Search for a word in the embeddings file and print top 5 closest words");
             embeddingUtils.sleep(250);
             System.out.println("(?) Quit");
 
@@ -103,7 +104,7 @@ public class Console {
                     System.out.println("You selected option 6");
                     userProcessor.writeUserFile(DIRECTORY, TXT);
                     break;
-                    case "7":
+                case "7":
                     System.out.println("You selected option 7");
                     handleSearch();
                     break;
@@ -120,81 +121,81 @@ public class Console {
 
     }
 
-   /*
-    * Method to begin the processing of the files.
-    * Calls the necessary classes to process the files
-    * @return void
-    * @param String embeddingsFile, String googleWordsFile, String userFile, String outputFile
-    */
-    private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile){
+    /*
+     * Method to begin the processing of the files.
+     * Calls the necessary classes to process the files
+     * @return void
+     * @param String embeddingsFile, String googleWordsFile, String userFile, String outputFile
+     */
+    private void beginProcessing(String embeddingsFile, String googleWordsFile, String userFile, String outputFile) {
 
-            // Create instances of the classes
-            WordEmbeddingsProcessor wep = new WordEmbeddingsProcessor();
-            GoogleWordProcessor gwp = new GoogleWordProcessor();
-            CommonWordFinder finder = new CommonWordFinder();
-            Simplifier simplifier = new Simplifier();
+        // Create instances of the classes
+        WordEmbeddingsProcessor wep = new WordEmbeddingsProcessor();
+        GoogleWordProcessor gwp = new GoogleWordProcessor();
+        CommonWordFinder finder = new CommonWordFinder();
+        Simplifier simplifier = new Simplifier();
 
-            /*
-            * Load the embeddings file and store the embeddings in a map
-            * @return Map<String, double[]>
-            * @param String embeddingsFile
-            * @see WordEmbeddingsProccessor
-             */
-            Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
-            System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
+        /*
+         * Load the embeddings file and store the embeddings in a map
+         * @return Map<String, double[]>
+         * @param String embeddingsFile
+         * @see WordEmbeddingsProccessor
+         */
+        Map<String, double[]> embeddings = wep.storeFile(embeddingsFile);
+        System.out.println("Embeddings: " + embeddings.size() + " words loaded.");
 
-            /*
-            * Load the google words file and store the words in a list
-            * @return List<String>
-            * @param String googleWordsFile
-            * @see GoogleWordProcessor
-             */
-            List<String> googleWords = gwp.googleWords(googleWordsFile);
-            System.out.println("Google Words: " + googleWords.size() + " words loaded.");
+        /*
+         * Load the google words file and store the words in a list
+         * @return List<String>
+         * @param String googleWordsFile
+         * @see GoogleWordProcessor
+         */
+        List<String> googleWords = gwp.googleWords(googleWordsFile);
+        System.out.println("Google Words: " + googleWords.size() + " words loaded.");
 
-            /*
-            * Find the common words between the google words and the embeddings
-            * Write common words that have been found to a file
-            * @return List<String>
-            * @param List<String> googleWordList, Map<String, double[]> embeddingsMap
-            * @see CommonWordFinder
-             */
-            List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
-            finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
+        /*
+         * Find the common words between the google words and the embeddings
+         * Write common words that have been found to a file
+         * @return List<String>
+         * @param List<String> googleWordList, Map<String, double[]> embeddingsMap
+         * @see CommonWordFinder
+         */
+        List<String> commonWords = finder.findCommonWords(googleWords, embeddings);
+        finder.writeCommonWordsWithEmbeddings(commonWords, embeddings, googleWordsFile);
 
-            /*
-            * Read the user file and store the words in a list
-            * @return List<String>
-            * @param String userFile
-            * @see GoogleWordProcessor
-             */
-            Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
-            System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
+        /*
+         * Read the user file and store the words in a list
+         * @return List<String>
+         * @param String userFile
+         * @see GoogleWordProcessor
+         */
+        Map<String, double[]> googleWordEmbeddings = gwp.storeFile(googleWordsFile);
+        System.out.println("Google Word Embeddings: " + googleWordEmbeddings.size() + " words loaded.");
 
-            /*
-            * Simplify the user file using the embeddings
-            * @return void
-            * @param Map<String, double[]> embeddings, String userFile, String outputFile
-            * @see Simplifier
-             */
-            simplifier.simplify(embeddings, userFile, outputFile);
-
-        }
-
-            /*
-            * Method to handle the search functionality
-            * @return void
-            * @param void
-            * @see WordSearch
-             */
-            private void handleSearch(){
-                Scanner keyb = new Scanner(System.in);
-                String searchWord;
-                System.out.print("Enter the word you want to search for: ");
-                searchWord = keyb.nextLine();
-                wordSearch.search(searchWord, embeddingsFile);
-        }
-
+        /*
+         * Simplify the user file using the embeddings
+         * @return void
+         * @param Map<String, double[]> embeddings, String userFile, String outputFile
+         * @see Simplifier
+         */
+        simplifier.simplify(embeddings, userFile, outputFile);
 
     }
+
+    /*
+     * Method to handle the search functionality
+     * @return void
+     * @param void
+     * @see WordSearch
+     */
+    private void handleSearch() {
+        Scanner keyb = new Scanner(System.in);
+        String searchWord;
+        System.out.print("Enter the word you want to search for: ");
+        searchWord = keyb.nextLine();
+        wordSearch.search(searchWord, embeddingsFile);
+    }
+
+
+}
 
